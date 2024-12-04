@@ -1,0 +1,17 @@
+# Ignorar arquivos Python compilados
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar arquivos de banco de dados
+*.db
+*.sqlite
+
+# Ignorar arquivos do sistema operacional
+.DS_Store  # Para macOS
+Thumbs.db  # Para Windows
+
+# Ignorar ambientes virtuais (se houver)
+venv/
+.env/
