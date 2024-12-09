@@ -50,12 +50,13 @@ class TkinterWindow:
 
         self.root.title('Calculadora')
         self.root.config(bg=ProjectColours.colours['black'])
+        self.root.iconbitmap('ico/calculator.ico')
 
     def window_frames(self):
 
         # Frame that displays the numbers and equations.
         self.fr_display = Frame(
-            self.root, width=self.width, height=self.height, bg=ProjectColours.colours['black_light'])
+            self.root, width=self.width, height=self.height)
         self.fr_display.place(relx=0, rely=0, relwidth=1, relheight=0.17)
 
         # Frame that displays the numeric keys and math signals.
