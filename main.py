@@ -7,7 +7,7 @@ def main():
     main_window = TkinterWindow()
 
     button_manager = TkinterButtons(main_window.root,
-        main_window.fr_display, main_window.fr_body)
+        main_window.fr_display, main_window.fr_body, main_window.fr_historic)
 
     main_window.start_tkinter()
 

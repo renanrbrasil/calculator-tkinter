@@ -6,10 +6,11 @@ import re
 
 class Calculator:
 
-    def __init__(self, root, display_frame):
+    def __init__(self, root, display_frame, historic_frame):
 
         self.root = root
         self.fr_display = display_frame
+        self.fr_historic = historic_frame
 
         self.equation = StringVar()
         self.label_value = ''
@@ -17,6 +18,8 @@ class Calculator:
         self.root.bind('<Key>', self.key_press)
 
         self.display_number()
+
+        self.historic()
 
     def display_number(self):
 
@@ -46,6 +49,9 @@ class Calculator:
         self.label_value = ''
         self.equation.set(self.label_value)
 
+    def clean_historic(self):
+        self.historic_listbox.delete(0, END)
+
     def clean_equation(self, expression):
         self.cleaned_expression = re.sub(r'\b0+(?=\d)', '', expression)
         return self.cleaned_expression
@@ -57,16 +63,43 @@ class Calculator:
 
             self.result = eval(self.cleaned_equation)
 
-            if isinstance(self.result, float):
-                self.equation.set(f'{self.result:.1f}')
+            if isinstance(self.result, float) and self.result.is_integer():
+                self.equation.set(int(self.result))
+                self.result = int(self.result)
+
+            elif isinstance(self.result, float):
+                self.equation.set(round(self.result, 1))
+                self.result = round(self.result, 1)
+
             else:
                 self.equation.set(self.result)
 
+            self.historic_listbox.insert(
+                END, f'{self.label_value} = {str(self.result)}')
             self.label_value = str(self.result)
 
         except ZeroDivisionError:
             self.equation.set('Divisão por 0 inválida')
+            self.label_value = ''
 
         except Exception as e:
             self.equation.set('Error')
             print(f'Erro: {e}')
+            self.label_value = ''
+
+    def historic(self):
+
+        self.historic_listbox = Listbox(
+            self.fr_historic, width=25, height=20, bg=ProjectColours.colours['blue_light'], fg=ProjectColours.colours['white'], font=('Ivy', 13), selectbackground=ProjectColours.colours['blue_light'])
+        self.historic_listbox.pack(
+            side=LEFT, fill=BOTH, expand=True)
+        self.historic_listbox.focus_set()
+        self.historic_listbox.bind(
+            '<<ListboxSelect>>', self.get_value_historic)
+
+    def get_value_historic(self, event):
+        self.value = self.historic_listbox.get(
+            self.historic_listbox.curselection())
+        self.formatted_value = self.value.split('=')[1].strip()
+        self.equation.set(self.formatted_value)
+        self.label_value = self.formatted_value

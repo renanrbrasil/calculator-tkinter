@@ -22,9 +22,6 @@ class TkinterWindow:
         # Running tkinter window frames.
         self.window_frames()
 
-        # Starting the tkinter window.
-        # self.start_tkinter()
-
     def window_settings(self):
 
         # Takes the monitor screen width and height in pixels.
@@ -32,7 +29,7 @@ class TkinterWindow:
         screen_height = self.root.winfo_screenheight()
 
         # Setting the width and height of the tkinter widget
-        widget_width = 235
+        widget_width = 365
         widget_height = 310
 
         # Calculate the x and y to centre the window.
@@ -63,6 +60,15 @@ class TkinterWindow:
         self.fr_body = Frame(
             self.root, width=self.width, height=self.height, bg='white')
         self.fr_body.place(relx=0, rely=0.172)
+
+        # Frame that displays the equations historic
+        self.fr_historic = Frame(
+            self.root, width=128, height=310, bg=ProjectColours.colours['black_light'])
+        self.fr_historic.place(relx=0.65, rely=0)
+
+        self.fr_line = Frame(
+            self.root, width=1, height=54, bg='black')
+        self.fr_line.place(relx=0.647, rely=0)
 
     def start_tkinter(self):
         self.root.mainloop()
