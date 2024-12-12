@@ -77,3 +77,6 @@ O código foi estruturado para facilitar a manutenção e a escalabilidade, segu
    python main.py
    ```
 
+### **Observação**
+O código foi escrito em inglês porque estou estudando o idioma e aplicando ele na prática.
+
